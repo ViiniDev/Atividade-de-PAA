@@ -1,81 +1,249 @@
-# Roteiro da apresentacao
+# Roteiro completo da apresentacao
 
 Tempo sugerido: 15 a 20 minutos.
 
-## 1. Titulo
+Este roteiro acompanha os slides em `apresentacao_paa.pdf`. A ideia nao e ler tudo literalmente, mas usar como guia para treinar a fala.
 
-Apresente o tema, seu nome, disciplina e professor. Diga que o trabalho e uma reescrita com implementacao de um artigo que usa divisao e conquista.
+## Slide 1 - Titulo
 
-## 2. Artigo escolhido
+Fala sugerida:
 
-Informe o titulo do artigo, autores, evento ACM-BCB 2020 e DOI. Explique que o artigo foi escolhido porque a tecnica de divisao e conquista aparece diretamente no algoritmo.
+> Bom dia/boa noite. Meu nome e Vinicius Wanderley Arruda. Nesta apresentacao vou falar sobre a reescrita e implementacao de um artigo que utiliza a tecnica de Divisao e Conquista. O artigo escolhido aplica essa tecnica em segmentacao de imagens de microscopia eletronica, mais especificamente mapas de cryo-EM.
 
-## 3. Problema
+O que destacar:
 
-Explique que a cryo-EM gera mapas de densidade de moleculas biologicas. Para modelar uma molecula, e necessario separar o mapa em regioes correspondentes a cadeias ou subunidades. Essa separacao e chamada segmentacao.
+- nome do trabalho;
+- disciplina;
+- professor;
+- que a apresentacao cobre artigo, algoritmo e implementacao.
 
-## 4. Conceitos principais
+## Slide 2 - Artigo escolhido
 
-Explique rapidamente:
+Fala sugerida:
 
-- cryo-EM: tecnica de microscopia para observar moleculas congeladas;
-- mapa de densidade: representacao 3D da molecula;
-- voxel: unidade de volume do mapa 3D;
-- watershed: tecnica classica de segmentacao inspirada em bacias hidrograficas.
+> O artigo escolhido se chama "A Divide and Conquer Algorithm for Electron Microscopy Segmentation". Ele foi publicado no ACM-BCB em 2020. Escolhi esse artigo porque a tecnica de Divisao e Conquista aparece diretamente no algoritmo proposto, nao apenas como uma referencia teorica. O objetivo dos autores e segmentar mapas de microscopia eletronica de forma mais eficiente.
 
-## 5. Ideia geral
+O que destacar:
 
-Mostre o ciclo principal: dividir, resolver subproblemas e combinar. Diga que o algoritmo primeiro faz uma segmentacao preliminar e depois usa divisao e conquista para reduzir o custo da combinacao.
+- titulo;
+- autores;
+- ACM;
+- tema;
+- justificativa da escolha.
 
-## 6. Segmentacao preliminar
+## Slide 3 - Problema
 
-Explique que pontos abaixo de um limiar sao descartados, pontos restantes sao processados por densidade, regioes iniciais sao criadas e depois regioes pequenas sao mescladas.
+Fala sugerida:
 
-## 7. Divisao
+> A cryo-EM gera mapas tridimensionais de densidade de moleculas biologicas. Esses mapas ajudam pesquisadores a estudar proteinas e complexos moleculares. Mas, para modelar essas estruturas, muitas vezes e necessario separar o mapa em partes menores, correspondentes a cadeias ou subunidades. Esse processo e chamado de segmentacao. O problema e que fazer isso manualmente pode ser demorado e depende de conhecimento especializado.
 
-Explique que o artigo usa square-root divide-and-conquer: divide o mapa em aproximadamente raiz de n subimagens, cada uma com raiz de n voxels.
+O que destacar:
 
-## 8. Subproblemas
+- entrada: mapa de densidade;
+- saida: regioes segmentadas;
+- motivacao: facilitar modelagem molecular.
 
-Explique que cada subimagem e resolvida recursivamente. Quando o bloco fica pequeno, usa a segmentacao preliminar como caso base.
+## Slide 4 - Conceitos principais
 
-## 9. Combinacao
+Fala sugerida:
 
-Explique que as regioes parciais sao reunidas e mescladas ate atingir no maximo K regioes finais. Essa e a etapa de conquista do algoritmo.
+> Antes do algoritmo, existem tres conceitos importantes. O primeiro e cryo-EM, uma tecnica que congela rapidamente a amostra e usa microscopia eletronica para observar moleculas. O segundo e o mapa de densidade, que e a representacao 3D produzida a partir dessas imagens. Cada unidade desse volume e chamada de voxel. O terceiro e watershed, uma tecnica classica de segmentacao baseada na ideia de separar regioes como bacias em um relevo.
 
-## 10. Complexidade
+Possivel complemento:
 
-Compare a versao preliminar com a versao divide-and-conquer:
+> Em uma imagem 2D falamos em pixel; em uma imagem 3D falamos em voxel.
 
-- preliminar: O(n log n + m^2 log m);
-- divide-and-conquer: O(K^2 n log n), que para K pequeno se aproxima de O(n log n).
+## Slide 5 - Ideia geral do algoritmo
 
-## 11. Implementacao
+Fala sugerida:
 
-Diga que a implementacao foi feita em Python. O artigo usa mapas 3D reais, mas a implementacao usa matriz 2D sintetica para facilitar execucao e visualizacao. Reforce que a estrutura do algoritmo foi preservada.
+> A ideia geral do algoritmo segue exatamente o padrao de Divisao e Conquista. Primeiro, o problema e dividido em partes menores. Depois, cada parte e resolvida como um subproblema. Por fim, os resultados parciais sao combinados. No artigo, isso significa dividir o mapa de densidade em subimagens, segmentar cada subimagem e depois mesclar as regioes resultantes.
 
-## 12. Demonstracao
+Ponto importante:
 
-Mostre a imagem: a esquerda o mapa sintetico de densidade, a direita as regioes segmentadas. Explique que o script gera a matriz, divide recursivamente e combina as regioes.
+- diga explicitamente: dividir, resolver, combinar.
 
-## 13. Comparacao
+## Slide 6 - Segmentacao preliminar
 
-Explique que o artigo compara com Segger, uma ferramenta conhecida de segmentacao para cryo-EM. O artigo relata desempenho competitivo, embora a comparacao seja dificil porque as ferramentas exigem parametros e interacao diferentes.
+Fala sugerida:
 
-## 14. Limitacoes
+> Antes da divisao e conquista, o artigo apresenta uma segmentacao preliminar baseada em watershed. Primeiro, os voxels abaixo de um limiar de densidade sao descartados. Depois, os voxels restantes sao processados em ordem decrescente de densidade. Se um voxel nao toca nenhuma regiao, ele cria uma nova regiao. Se ele toca regioes existentes, ele e associado a uma delas. Depois, regioes pequenas sao mescladas com base nos maximos locais.
 
-Assuma claramente as limitacoes:
+Termos para explicar se perguntarem:
 
-- implementacao 2D em vez de 3D;
-- dados sinteticos em vez de mapas reais;
-- tratamento de fronteira simplificado.
+- limiar: valor minimo para considerar um voxel relevante;
+- maximo local: voxel de maior densidade dentro de uma regiao.
 
-Finalize dizendo que, mesmo assim, a implementacao demonstra a tecnica de divisao e conquista.
+## Slide 7 - Divisao
 
-## 15. Conclusao
+Fala sugerida:
 
-Reforce as tres ideias principais:
+> A parte de divisao do artigo usa uma estrategia chamada square-root divide-and-conquer. Em vez de dividir o mapa em apenas duas partes, ele divide em aproximadamente raiz de n subimagens, cada uma com aproximadamente raiz de n voxels. Isso reduz o tamanho dos problemas e evita que a fase de combinacao trabalhe com regioes demais ao mesmo tempo.
 
-- o problema pratico e segmentar mapas de cryo-EM;
-- divisao e conquista reduz o custo da combinacao;
-- o codigo demonstra divisao, recursao e merge.
+Exemplo simples:
+
+> Se o mapa fosse muito grande, em vez de segmentar tudo de uma vez, o algoritmo separa em blocos menores.
+
+## Slide 8 - Subproblemas
+
+Fala sugerida:
+
+> Cada subimagem gerada pela divisao passa a ser um novo problema de segmentacao. O algoritmo chama a si mesmo recursivamente para resolver cada bloco. Quando o bloco fica pequeno o suficiente, ele usa a segmentacao preliminar como caso base. Isso e tipico de algoritmos de Divisao e Conquista.
+
+Ponto importante:
+
+- mencionar recursao;
+- mencionar caso base.
+
+## Slide 9 - Combinacao
+
+Fala sugerida:
+
+> Depois que os subproblemas sao resolvidos, o algoritmo precisa combinar as regioes obtidas em cada bloco. Essa e a etapa de conquista. Cada subproblema pode gerar ate K regioes, e a fase de merge e aplicada para reduzir as regioes parciais ate chegar a no maximo K regioes finais. O artigo tambem observa que regioes de fronteira entre subimagens precisam de cuidado, porque uma divisao pode cortar uma regiao que deveria permanecer junta.
+
+Ponto importante:
+
+- K = numero desejado ou maximo de regioes finais.
+
+## Slide 10 - Analise de complexidade
+
+Fala sugerida:
+
+> A segmentacao preliminar tem uma parte de ordenacao, com custo O(n log n), mas a fase de merge pode custar O(m² log m), onde m e o numero de regioes preliminares. Esse termo quadratico pode ser caro. Com divisao e conquista, o artigo chega a complexidade O(K² n log n). Como K costuma ser pequeno em relacao ao tamanho do mapa, a ideia se aproxima de O(n log n), tornando o processo mais eficiente.
+
+Se quiser simplificar:
+
+> O ganho vem de nao fazer uma combinacao enorme de uma vez.
+
+## Slide 11 - Implementacao desenvolvida
+
+Fala sugerida:
+
+> A implementacao foi feita em Python. O artigo trabalha com mapas 3D reais de cryo-EM, mas para a atividade eu implementei uma versao didatica usando uma matriz 2D sintetica. Essa simplificacao permite executar e visualizar o algoritmo facilmente, mas preserva a estrutura principal: aplicar limiar, criar regioes preliminares, dividir em blocos, resolver recursivamente e combinar.
+
+Se perguntarem por que 2D:
+
+> Porque o foco da atividade e demonstrar a tecnica de Divisao e Conquista, e mapas 3D reais exigem formatos e ferramentas especificas.
+
+## Slide 12 - Demonstracao pratica
+
+Fala sugerida:
+
+> Nesta imagem, a esquerda temos o mapa sintetico de densidade gerado pelo codigo. As regioes mais intensas simulam partes importantes do mapa. A direita temos o resultado da segmentacao. O algoritmo dividiu a matriz, resolveu os blocos e depois combinou as regioes. Na execucao padrao, ele encontra 4 regioes.
+
+Se for demonstrar no terminal:
+
+```powershell
+cd E:\PAA\Atividade-de-PAA\codigo
+python segmentacao_dc.py
+```
+
+Saida esperada:
+
+```text
+Regioes encontradas: 4
+Visualizacao salva em: resultados\demo_segmentacao.png
+```
+
+## Slide 13 - Comparacao
+
+Fala sugerida:
+
+> O artigo compara o metodo proposto com o Segger, que e uma ferramenta conhecida para segmentacao de mapas de cryo-EM. Os autores dizem que a comparacao nao e perfeita, porque o Segger e interativo e depende de parametros e experiencia do usuario. Mesmo assim, o metodo proposto apresentou desempenho competitivo nos testes com 10 imagens reais.
+
+O que destacar:
+
+- Segger e referencia pratica;
+- metodo proposto e competitivo;
+- comparacao tem limitacoes.
+
+## Slide 14 - Limitacoes
+
+Fala sugerida:
+
+> A principal limitacao da nossa implementacao e que ela usa uma matriz 2D sintetica, enquanto o artigo usa mapas 3D reais. Alem disso, o tratamento especial de fronteiras foi simplificado. Entao o codigo nao e uma ferramenta biologica completa, mas sim uma implementacao didatica para mostrar a tecnica de Divisao e Conquista.
+
+Importante:
+
+- assumir limitacoes com seguranca;
+- reforcar que o objetivo da atividade foi cumprido.
+
+## Slide 15 - Conclusao
+
+Fala sugerida:
+
+> Como conclusao, o artigo mostra uma aplicacao pratica de Divisao e Conquista fora dos exemplos classicos. A tecnica ajuda a segmentar mapas de cryo-EM dividindo o problema em subproblemas menores e combinando os resultados. A implementacao em Python demonstra essa ideia na pratica, conectando a teoria da disciplina com um problema real de processamento de imagens e bioinformatica.
+
+Tres frases para memorizar:
+
+- O problema e segmentar mapas de densidade de cryo-EM.
+- A tecnica divide o mapa, resolve subproblemas e combina regioes.
+- A implementacao demonstra essa estrutura em Python.
+
+## Slide 16 - Perguntas
+
+Fala sugerida:
+
+> Obrigado. Estou disponivel para perguntas.
+
+## Perguntas provaveis e respostas
+
+### 1. Onde exatamente esta a Divisao e Conquista?
+
+Resposta:
+
+> Na divisao do mapa em subimagens, na resolucao recursiva de cada subimagem e na combinacao das regioes segmentadas ao final.
+
+### 2. Por que o artigo nao usa divisao binaria?
+
+Resposta:
+
+> Ele usa square-root divide-and-conquer para reduzir melhor o custo da fase de merge. A ideia e gerar varios subproblemas menores em vez de apenas dois subproblemas grandes.
+
+### 3. O que e voxel?
+
+Resposta:
+
+> Voxel e o equivalente 3D do pixel. Em vez de representar um ponto em uma imagem plana, ele representa uma pequena celula de volume em um mapa tridimensional.
+
+### 4. O que e watershed?
+
+Resposta:
+
+> Watershed e uma tecnica de segmentacao baseada em uma analogia com relevo. Ela separa regioes como se fossem bacias hidrograficas em uma superficie.
+
+### 5. Por que a implementacao usa 2D se o artigo usa 3D?
+
+Resposta:
+
+> Porque a atividade pede a implementacao da ideia do algoritmo. Mapas 3D reais exigem formatos e ferramentas especificas. A versao 2D permite demonstrar claramente divisao, recursao e combinacao.
+
+### 6. A implementacao reproduz exatamente o artigo?
+
+Resposta:
+
+> Nao exatamente. Ela e uma adaptacao didatica. A estrutura principal foi preservada, mas os dados reais 3D e o tratamento completo de fronteiras foram simplificados.
+
+### 7. Qual foi a principal otimizacao?
+
+Resposta:
+
+> A principal otimizacao foi evitar o merge global de muitas regioes preliminares. O algoritmo divide o mapa, faz merges menores e depois combina os resultados.
+
+### 8. Qual e a complexidade final?
+
+Resposta:
+
+> O artigo apresenta O(K² n log n). Como K e o numero de regioes desejadas e costuma ser pequeno, a complexidade e interpretada como proxima de O(n log n).
+
+### 9. O que e Segger?
+
+Resposta:
+
+> Segger e uma ferramenta usada para segmentar mapas de cryo-EM. O artigo compara o metodo proposto com o Segger.
+
+### 10. Qual a conclusao principal?
+
+Resposta:
+
+> Divisao e Conquista pode ser aplicada a problemas praticos de segmentacao, reduzindo o custo de combinacao e tornando o processamento mais eficiente.
